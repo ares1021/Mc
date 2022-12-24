@@ -1,5 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
+
 cred = credentials.Certificate("KEY.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
@@ -7,6 +8,11 @@ db = firestore.client()
 from flask import Flask, render_template, request, make_response, jsonify
 from datetime import datetime, timezone, timedelta
 app = Flask(__name__)
+
+@app.route("/")
+def index():
+    homepage += "<a href=/account>Mc</a><br><br>"
+    return homepage
 
 @app.route("/")
 def index():

@@ -1,3 +1,6 @@
+import requests
+from bs4 import Mc
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -11,29 +14,35 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    homepage += "<a href=/account>Mc</a><br><br>"
+    homepage = "<h1>吳佳哲Python讀取Firestore</h1>"
+    homepage += "<a href=/account>網頁表單輸入實例</a><br><br>"
+    homepage += "<a href=/search>Mc</a><br><br>"
     return homepage
 
-@app.route("/")
-def index():
-    homepage += "<br><a href=/read>讀取Firestore資料</a><br>"
-    return homepage
+@app.route("/account", methods=["GET", "POST"])
+def account():
+    if request.method == "POST":
+        user = request.form["user"]
+        pwd = request.form["pwd"]
+        result = "您輸入的帳號是：" + user + "; 密碼為：" + pwd 
+        return result
+    else:
+        return render_template("account.html")
 
-@app.route("/read")
-def read():
-    Result = ""     
-    collection_ref = db.collection("靜宜資管")    
-    docs = collection_ref.order_by("mail", direction=firestore.Query.DESCENDING).get()    
-    for doc in docs:         
-        Result += "文件內容：{}".format(doc.to_dict()) + "<br>"    
-    return Result
+
+
+
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    # build a request object
+    
     req = request.get_json(force=True)
-    # fetch queryResult from json
+    
     action =  req.get("queryResult").get("action")
-    msg =  req.get("queryResult").get("queryText")
-    info = "動作：" + action + "； 查詢內容：" + msg
+    #msg =  req.get("queryResult").get("queryText")
+    #info = "動作：" + action + "； 查詢內容：" + msg
     return make_response(jsonify({"fulfillmentText": info}))
+    #if(action == "choice")
+
+if __name__ == "__main__":
+    app.run()

@@ -9,7 +9,6 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 from flask import Flask, render_template, request, make_response, jsonify
-from datetime import datetime, timezone, timedelta
 app = Flask(__name__)
 
 @app.route("/")

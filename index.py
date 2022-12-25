@@ -53,7 +53,7 @@ def webhook():
              if flavor in dict["口味"]
                      info += "品名：" + dict["品名"] + "\n\n"
                      info += "口味：" + dict["口味"] + "\n\n"
-             info += "介紹：" + dict["介紹"] + "\n\n"
+                     info += "介紹：" + dict["介紹"] + "\n\n"
        
          info += result  
     return make_response(jsonify({"fulfillmentText": info}))

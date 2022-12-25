@@ -4,7 +4,7 @@ from bs4 import Mc
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("KEY.json")
+cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -41,7 +41,20 @@ def webhook():
     #msg =  req.get("queryResult").get("queryText")
     #info = "動作：" + action + "； 查詢內容：" + msg
     return make_response(jsonify({"fulfillmentText": info}))
-    #if(action == "choice")
+    if(action == "choice"):
+        food = req.get("queryResult").get("parmeters").get("menu")
+
+        collection ref = db.collection("期末專案-麥當勞")
+        docs = collection_ref.get()
+        result = " "
+        for doc in docs:
+            dict = doc.to_dict()
+            if menu in dict["food"]:
+                info += "品項: " + dict["food"] + "\n"
+                info += "價錢: " + dict["price"] + "\n"
+                info += "卡路里: " + dict["Kcal"] + "\n"
+        info += result
+    return make_response(jsonify({"fulfillmentText": info}))
 
 if __name__ == "__main__":
     app.run()

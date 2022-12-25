@@ -1,14 +1,13 @@
 import requests
-from bs4 import Mc
+from bs4 import BeautifulSoup
 
+from flask import Flask, render_template, request, make_response, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 
 cred = credentials.Certificate("serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
-
-from flask import Flask, render_template, request, make_response, jsonify
 app = Flask(__name__)
 
 @app.route("/")
@@ -29,9 +28,6 @@ def account():
         return render_template("account.html")
 
 
-
-
-
 @app.route("/webhook", methods=["POST"])
 def webhook():
     # build a request object
@@ -39,7 +35,7 @@ def webhook():
     # fetch queryResult from json
     action =  req.get("queryResult").get("action")
     msg =  req.get("queryResult").get("queryText")
-    
+
     info = "動作：" + action + "； 查詢內容：" + msg
 
     return make_response(jsonify({"fulfillmentText": info}))

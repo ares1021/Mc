@@ -38,8 +38,8 @@ def webhook():
     # info = "動作：" + action + "； 查詢內容：" + msg
 
     if(action == "choice"):
-    # flavor = req.get("queryResult").get("parmeters").get("flavor")
-    # info = "您選擇的口味是：" + flavor
+    flavor = req.get("queryResult").get("parmeters").get("flavor")
+    info = "您選擇的口味是：" + flavor
 
 
     #  flavor =  req.get("queryResult").get("parameters").get("flavor ")

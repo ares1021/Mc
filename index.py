@@ -34,26 +34,14 @@ def account():
 
 @app.route("/webhook", methods=["POST"])
 def webhook():
-    
+    # build a request object
     req = request.get_json(force=True)
-    
+    # fetch queryResult from json
     action =  req.get("queryResult").get("action")
-    #msg =  req.get("queryResult").get("queryText")
-    #info = "動作：" + action + "； 查詢內容：" + msg
-    return make_response(jsonify({"fulfillmentText": info}))
-    if(action == "choice"):
-        food = req.get("queryResult").get("parmeters").get("menu")
+    msg =  req.get("queryResult").get("queryText")
+    
+    info = "動作：" + action + "； 查詢內容：" + msg
 
-        collection ref = db.collection("期末專案-麥當勞")
-        docs = collection_ref.get()
-        result = " "
-        for doc in docs:
-            dict = doc.to_dict()
-            if menu in dict["food"]:
-                info += "品項: " + dict["food"] + "\n"
-                info += "價錢: " + dict["price"] + "\n"
-                info += "卡路里: " + dict["Kcal"] + "\n"
-        info += result
     return make_response(jsonify({"fulfillmentText": info}))
 
 if __name__ == "__main__":

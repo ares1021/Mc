@@ -42,8 +42,8 @@ def webhook():
     #    info = "您選擇的口味是：" + flavor
 
 
-      flavor =  req.get("queryResult").get("parameters").get("flavor ")
-         info = "您選擇的口味是：" + flavor +"，相關資料：\n\n"
+        flavor =  req.get("queryResult").get("parameters").get("flavor ")
+        info = "您選擇的口味是：" + flavor +"，相關資料：\n\n"
 #您要查詢減肥菜單的時段
         collection_ref = db.collection("樂事餅乾")
         docs = collection_ref.get()

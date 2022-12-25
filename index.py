@@ -38,24 +38,24 @@ def webhook():
     # info = "動作：" + action + "； 查詢內容：" + msg
 
     if(action == "choice"):
-    flavor = req.get("queryResult").get("parmeters").get("flavor")
-    info = "您選擇的口味是：" + flavor
+        flavor = req.get("queryResult").get("parmeters").get("flavor")
+        info = "您選擇的口味是：" + flavor
 
 
     #  flavor =  req.get("queryResult").get("parameters").get("flavor ")
     #     info = "您要查詢減肥菜單的時段：" + flavor +"，相關資料：\n\n"
 
-         collection_ref = db.collection("樂事餅乾")
-         docs = collection_ref.get()
-         result = ""
-         for doc in docs:
-             dict = doc.to_dict()
-             if flavor in dict["口味"]
-                     info += "品名：" + dict["品名"] + "\n\n"
-                     info += "口味：" + dict["口味"] + "\n\n"
-                     info += "介紹：" + dict["介紹"] + "\n\n"
+        collection_ref = db.collection("樂事餅乾")
+        docs = collection_ref.get()
+        result = ""
+        for doc in docs:
+            dict = doc.to_dict()
+            if flavor in dict["口味"]
+                info += "品名：" + dict["品名"] + "\n\n"
+                info += "口味：" + dict["口味"] + "\n\n"
+                info += "介紹：" + dict["介紹"] + "\n\n"
        
-         info += result  
+        info += result  
     return make_response(jsonify({"fulfillmentText": info}))
 
 if __name__ == "__main__":

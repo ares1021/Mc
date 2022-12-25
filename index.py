@@ -42,5 +42,6 @@ def webhook():
     info = "您選擇的口味是：" + flavor
 
     return make_response(jsonify({"fulfillmentText": info}))
+    
 if __name__ == "__main__":
     app.run()

@@ -38,13 +38,13 @@ def webhook():
     # info = "動作：" + action + "； 查詢內容：" + msg
 
     if(action == "choice"):
-        flavor = req.get("queryResult").get("parmeters").get("flavor")
-        info = "您選擇的口味是：" + flavor
+    #    flavor = req.get("queryResult").get("parmeters").get("flavor")
+    #    info = "您選擇的口味是：" + flavor
 
 
-    #  flavor =  req.get("queryResult").get("parameters").get("flavor ")
-    #     info = "您要查詢減肥菜單的時段：" + flavor +"，相關資料：\n\n"
-
+      flavor =  req.get("queryResult").get("parameters").get("flavor ")
+         info = "您選擇的口味是：" + flavor +"，相關資料：\n\n"
+#您要查詢減肥菜單的時段
         collection_ref = db.collection("樂事餅乾")
         docs = collection_ref.get()
         result = ""
